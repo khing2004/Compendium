@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import ProgressTracker from '@/components/dashboard';
+import ProgressTracker, { Props }from '@/components/dashboard';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -12,10 +12,18 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+interface DashboardProps {
+    initialTasks: any[];
+    chartData: any[];
+}
+
+export default function Dashboard(props: Props) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <ProgressTracker/>
+            <ProgressTracker
+                initialTasks={props.initialTasks}
+                chartData={props.chartData}
+            />
         </AppLayout>
     );
 }

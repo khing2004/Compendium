@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { router } from '@inertiajs/react';
 import { 
   BarChart, 
   Bar, 
@@ -22,30 +23,31 @@ import {
 } from 'lucide-react';
 
 // --- Types ---
-interface Task {
-  id: string;
+export interface Task {
+  id: number;
   title: string;
-  category: 'Academic' | 'Career' | 'Health' | 'Finance';
+  category: string;
   priority: 'High' | 'Medium' | 'Low';
   status: 'Todo' | 'In Progress' | 'Done';
   dueDate: string;
 }
 
-const CATEGORY_COLORS = {
+interface ChartDataPoint {
+  name: string,
+  tasks: number,
+}
+
+//Define props received from Laravel
+export interface Props {
+  initialTasks: Task[];
+  chartData: ChartDataPoint[];
+}
+const CATEGORY_COLORS: Record<string, string> = {
   Academic: 'bg-purple-100 text-purple-700',
   Career: 'bg-blue-100 text-blue-700',
   Health: 'bg-yellow-100 text-yellow-700',
   Finance: 'bg-orange-100 text-orange-700',
 };
-
-
-// --- Mock Data ---
-const INITIAL_TASKS: Task[] = [
-  { id: '1', title: 'Redesign Homepage', category: 'Academic', priority: 'High', status: 'In Progress', dueDate: '2024-10-24' },
-  { id: '2', title: 'Fix API Latency', category: 'Career', priority: 'High', status: 'Todo', dueDate: '2024-10-25' },
-  { id: '3', title: 'Draft Newsletter', category: 'Health', priority: 'Medium', status: 'Done', dueDate: '2024-10-20' },
-  { id: '4', title: 'Update User Profile', category: 'Finance', priority: 'Low', status: 'In Progress', dueDate: '2024-10-26' },
-];
 
 const CHART_DATA = [
   { name: 'Mon', tasks: 4 },
@@ -57,23 +59,26 @@ const CHART_DATA = [
   { name: 'Sun', tasks: 4 },
 ];
 
-const ProgressTracker = () => {
-  const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
+// Accept props here
+const ProgressTracker = ({initialTasks, chartData}: Props) => {
+
+  const tasks = initialTasks;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   // Form State
   const [formData, setFormData] = useState({
     title: '',
-    category: '',
-    priority: '',
+    category: 'Academic',
+    priority: 'Medium',
     dueDate: ''
   });
 
   // Derived Metrics
   const activeTasksCount = tasks.filter(t => t.status !== 'Done').length;
   const completedTasksCount = tasks.filter(t => t.status === 'Done').length;
-  const progressPercentage = Math.round((completedTasksCount / tasks.length) * 100) || 0;
+  const progressPercentage = tasks.length > 0 ? Math.round((completedTasksCount / tasks.length) * 100) : 0;
 
   // --- Handlers ---
   const handleOpenModal = (task?: Task) => {
@@ -87,7 +92,7 @@ const ProgressTracker = () => {
       });
     } else {
       setEditingTask(null);
-      setFormData({ title: '', category: '', priority: '', dueDate: '' });
+      setFormData({ title: '', category: 'Academic', priority: 'Medium', dueDate: '' });
     }
     setIsModalOpen(true);
   };
@@ -95,28 +100,30 @@ const ProgressTracker = () => {
   const handleSaveTask = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingTask) {
-      // Update
-      setTasks(tasks.map(t => t.id === editingTask.id ? { ...t, ...formData } as Task : t));
+      // Update: Sending PUT request to Laravel
+      router.put(`/task/${editingTask.id}`, formData, {
+        onSuccess: () => setIsModalOpen(false),
+      });
     } else {
       // Create
-      const newTask: Task = {
-        id: Math.random().toString(36).substr(2, 9),
-        status: 'Todo',
-        ...formData
-      } as Task;
-      setTasks([...tasks, newTask]);
+      router.post('/task', formData, {
+        onSuccess: () => setIsModalOpen(false),
+      });
     }
-    setIsModalOpen(false);
+
+    console.log("Task saved");
   };
 
-  const handleDeleteTask = (id: string) => {
-    setTasks(tasks.filter(t => t.id !== id));
+  const handleDeleteTask = (id: number) => {
+    // SENDING DELETE REQUEST
+    if (confirm('Are you sure you want to delete this task?')){
+      router.delete(`/task/${id}`);
+    }
   };
 
-  const toggleStatus = (id: string) => {
-    setTasks(tasks.map(t => 
-      t.id === id ? { ...t, status: t.status === 'Done' ? 'Todo' : 'Done' } : t
-    ));
+  const toggleStatus = (id: number) => {
+    // TOGGLE: SEND PATCH REQUEST
+    router.patch(`/task/${id}/toggle`);
   };
 
   return (
@@ -129,7 +136,7 @@ const ProgressTracker = () => {
             <h1 className="text-3xl font-bold text-slate-900 mb-2">Compendium Add-ons</h1>
             <p className="text-slate-500 flex items-center gap-2">
               <Layout size={18} />
-              You have <span className="font-bold text-slate-800">{activeTasksCount} active tasks</span> today.
+              You have <span className="font-bold text-slate-800">{activeTasksCount} active tasks</span> this week.
             </p>
           </div>
           <button 
@@ -170,7 +177,7 @@ const ProgressTracker = () => {
                 <h3 className="font-bold text-lg">Productivity</h3>
               </div>
               <ResponsiveContainer width="100%" height="80%">
-                <BarChart data={CHART_DATA}>
+                <BarChart data={chartData}>
                   <XAxis 
                     dataKey="name" 
                     axisLine={false} 
@@ -183,8 +190,8 @@ const ProgressTracker = () => {
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   />
                   <Bar dataKey="tasks" radius={[6, 6, 6, 6]} barSize={32}>
-                    {CHART_DATA.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={index === 2 ? '#2563eb' : '#cbd5e1'} />
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={index === chartData.length - 1 ? '#2563eb' : '#cbd5e1'} />
                     ))}
                   </Bar>
                 </BarChart>
@@ -216,7 +223,7 @@ const ProgressTracker = () => {
                           {task.title}
                         </h4>
                         <div className="flex items-center gap-3 mt-1">
-                          <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${CATEGORY_COLORS[task.category]}`}>
+                          <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${CATEGORY_COLORS[task.category]} || bg-gray-100 text-gray-600`}>
                             {task.category}
                           </span>
                           <span className="flex items-center gap-1 text-xs text-slate-400">
@@ -317,6 +324,7 @@ const ProgressTracker = () => {
                 <button 
                   type="submit"
                   className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all active:scale-95"
+                  onClick={handleSaveTask}
                 >
                   {editingTask ? 'Save Changes' : 'Create Task'}
                 </button>

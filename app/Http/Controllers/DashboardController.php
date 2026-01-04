@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\ProductivityLogChart;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -44,13 +45,70 @@ class DashboardController extends Controller
 
     public function store(Request $request)
     {
+        // Validate only data incoming from the form
         $validated = $request->validate([
-            'title' => 'required'|'string'|'max:50',
-            'category' => 'required'|'string',
-            'priority' => 'required'|'string',
-            'status' => 'required'|'date',
+            'title' => 'required|string|max:50',
+            'category' => 'required|string',
+            'priority' => 'required|string',
+            'dueDate' => 'required|date',
         ]);
 
-        
+        //Look up the Category ID (since Frontend sends "Academic", Health, etc.)
+        $category = Category::where('name', $request->category)->firstOrFail();
+
+        // Create Task securely
+        Task::create([
+            'user_id' => Auth::id(), // Assign id here securely from the session
+            'category_id' => $category->id,
+            'title' => $validated['title'],
+            'priority' => $validated['priority'],
+            'status' => 'Todo',
+            'due_date' => $validated['dueDate'],
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::where('user_id', Auth::id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'category' => 'required|string',
+            'priority' => 'required|string',
+            'dueDate' => 'required|date',
+        ]);
+
+        $category = Category::where('name', $request->category)->firstOrFail();
+
+        $task->update([
+            'category_id' => $category->id,
+            'title' => $validated['title'],
+            'priority' => $validated['priority'],
+            'due_date' => $validated['dueDate'],
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function toggleStatus($id)
+    {
+        $task = Task::where('user_id', Auth::id())->findOrFail($id);
+        $task->update([
+            'status' => $task->status === 'Done' ? 'Todo' : 'Done'
+        ]);
+
+        // Productivity Logic heree
+
+
+        return redirect()->back();
+    }
+
+
+    public function destroy($id)
+    {
+        $task = Task::where('user_id', Auth::id())->findOrFail($id)->delete();
+        return redirect()->back();
     }
 }
