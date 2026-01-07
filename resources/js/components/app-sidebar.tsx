@@ -24,7 +24,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Journal',
-        href: '/journal',
+        href: '/journal',   
         icon: BookText,
     },
 ];

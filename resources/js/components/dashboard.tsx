@@ -45,12 +45,6 @@ export interface Props {
   initialTasks: Task[];
   chartData: ChartDataPoint[];
 }
-const CATEGORY_COLORS: Record<string, string> = {
-  Academic: 'bg-purple-100 text-purple-700',
-  Career: 'bg-blue-100 text-blue-700',
-  Health: 'bg-yellow-100 text-yellow-700',
-  Finance: 'bg-green-100 text-green-700',
-};
 
 const CHART_DATA = [
   { name: 'Mon', tasks: 4 },
