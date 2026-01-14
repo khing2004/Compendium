@@ -12,11 +12,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface DashboardProps {
-    initialTasks: any[];
-    chartData: any[];
-}
-
 export default function Dashboard(props: Props) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

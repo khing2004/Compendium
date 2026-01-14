@@ -3,8 +3,9 @@ import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/react';
-import JournalIndex from '@/components/journal';
+import JournalIndex, { Props } from '@/components/journal';
 import journal from '@/routes/journal';
+//import { Props } from 'recharts/types/container/Surface';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -13,14 +14,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-interface JournalProps {
-    dataEntries: any[];
-}
 
-export default function Journal() {
+export default function Journal(props: Props) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <JournalIndex/>
+            <JournalIndex
+                entries={props.entries}
+            />
         </AppLayout>
     );
 }

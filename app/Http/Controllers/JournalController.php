@@ -16,7 +16,19 @@ class JournalController extends Controller
             ->paginate(10);
 
         return Inertia::render('journal', [
-            'entries' => $entries
+            'entries' => Journal::where('user_id', Auth::id())
+            ->latest()
+            ->paginate(7)
+            ->map(function ($entry) {
+                return [
+                    'id'=>$entry->id,
+                    'learning_journal'=>$entry->learning_journal,
+                    'heart_journal'=>$entry->heart_journal,
+                    'questions'=>$entry->questions,
+                    'quotes'=>$entry->quotes,
+                    'display_date' => date('M d , Y - D', strtotime($entry->created_at))
+                ];
+            })
         ]);
     }
 }

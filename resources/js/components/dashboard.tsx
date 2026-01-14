@@ -130,7 +130,7 @@ const ProgressTracker = ({initialTasks, chartData}: Props) => {
         {/* --- Header Section --- */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Compendium Add-ons</h1>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Compendium Weekly</h1>
             <p className="text-slate-500 flex items-center gap-2">
               <Layout size={18} />
               You have <span className="font-bold text-slate-800">{activeTasksCount} active tasks</span> this week.

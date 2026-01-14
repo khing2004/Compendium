@@ -11,9 +11,10 @@ import {
     Calendar,
     PenLine
 } from 'lucide-react';
+import { router } from '@inertiajs/react';
 
 // --- Types ---
-interface JournalEntry {
+export interface JournalEntry {
     id: number;
     learning_journal: string;
     heart_journal: string;
@@ -45,7 +46,14 @@ const MOCK_ENTRIES: JournalEntry[] = [
     }
 ];
 
-export default function JournalIndex() {
+// Define props received from Laravel
+export interface Props {
+    entries: JournalEntry[];
+}
+
+// Accept props here
+const JournalIndex = ({entries}: Props) => {
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
     
     // We keep useForm for the UI, but we won't actually POST to a server yet
@@ -75,7 +83,7 @@ export default function JournalIndex() {
                 {/* --- Header --- */}
                 <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 mb-2">Reflection Journal</h1>
+                        <h1 className="text-3xl font-bold text-slate-900 mb-2">Compendium Journal</h1>
                         <p className="text-slate-500 flex items-center gap-2">
                             <PenLine size={18} />
                             Document your learning, feelings, and curiosity.
@@ -92,7 +100,7 @@ export default function JournalIndex() {
                 {/* --- Journal Grid --- */}
                 <div className="grid grid-cols-1 gap-8">
                     {/* ✅ CHANGED: Mapping over MOCK_ENTRIES instead of props */}
-                    {MOCK_ENTRIES.map((entry) => (
+                    {entries.map((entry) => (
                         <div key={entry.id} className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow duration-300">
                             {/* Entry Date Header */}
                             <div className="bg-slate-50 border-b border-slate-100 px-6 py-4 flex items-center gap-2">
@@ -150,7 +158,7 @@ export default function JournalIndex() {
                         </div>
                     ))}
 
-                    {MOCK_ENTRIES.length === 0 && (
+                    {entries.length === 0 && (
                         <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-slate-300">
                             <BookOpen className="mx-auto text-slate-300 mb-4" size={48} />
                             <h3 className="text-lg font-medium text-slate-900">Your journal is empty</h3>
@@ -254,3 +262,6 @@ export default function JournalIndex() {
     </div>
     );
 };
+
+
+export default JournalIndex;
