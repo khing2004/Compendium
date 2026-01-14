@@ -9,7 +9,7 @@ import journal from '@/routes/journal';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Journal',
+        title: 'Compendium Journal',
         href: '/journal',
     },
 ];

@@ -18,32 +18,32 @@ import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Weekly Tasks',
         href: dashboard(),
         icon: LayoutGrid,
     },
     {
-        title: 'Journal',
+        title: 'Daily Journal',
         href: '/journal',   
+        icon: BookText,
+    },
+    {
+        title: 'Daily LeetCode',
+        href: '/leetcode',   
+        icon: BookText,
+    },
+    {
+        title: 'Roadmap Progress',
+        href: '/roadmap',   
         icon: BookText,
     },
 ];
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'GitHub',
-        href: 'https://github.com/khing2001',
-        icon: Github,
-    },
-    {
         title: 'Documentation',
         href: 'https://laravel.com/docs/starter-kits#react',
         icon: BookOpen,
-    },
-    {
-        title: 'Gmail',
-        href: 'https://mail.google.com/mail/u/0/#inbox',
-        icon: Mail,
     },
     {
         title: 'Leetcode',

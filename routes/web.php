@@ -26,9 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Journal
     Route::get('/journal', [JournalController::class, 'index'])->name('journal.index');
-    Route::post('/journal-entry', [JournalController::class, 'store'])->name('journal-entry.store');
-    Route::put('/journal-entry/{id}/update', [JournalController::class, 'update'])->name('journal-entry.update');
-    Route::delete('journal-entry/{id}/delete', [JournalController::class, 'destroy'])->name('journal-entry.destroy');
+    Route::post('/journal-entry', [JournalController::class, 'store'])->name('journal.store');
+    Route::put('/journal-entry/{id}/', [JournalController::class, 'update'])->name('journal.update');
+    Route::delete('journal-entry/{id}/', [JournalController::class, 'destroy'])->name('journal.destroy');
 });
 
 require __DIR__.'/settings.php';

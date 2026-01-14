@@ -31,4 +31,55 @@ class JournalController extends Controller
             })
         ]);
     }
+
+    public function store(Request $request)
+    {
+        // Validate data coming from the form
+        $validated = $request->validate([
+            'learning_journal' => 'string',
+            'heart_journal' => 'string',
+            'questions' => 'string',
+            'quotes' => 'string',
+        ]);
+
+        //Create
+        Journal::create([
+            'user_id' => Auth::id(), // Assigning id securely for this seesion
+            'learning_journal' => $validated['learning_journal'],
+            'heart_journal' => $validated['heart_journal'],
+            'questions' => $validated['questions'],
+            'quotes' => $validated['quotes']
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $entry = Journal::where('user_id', Auth::id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'learning_journal' => 'string',
+            'heart_journal' => 'string',
+            'questions' => 'string',
+            'quotes' => 'string',
+        ]);
+
+        $entry->update([
+            'learning_journal' => $validated['learning_journal'],
+            'heart_journal' => $validated['heart_journal'],
+            'questions' => $validated['questions'],
+            'quotes' => $validated['quotes']
+        ]);
+
+        return redirect()->back();
+        
+    }
+
+    public function destroy($id)
+    {
+        $entry = Journal::where('user_id', Auth::id())->findOrFail($id)->delete();
+        
+        return redirect()->back();
+    }
 }

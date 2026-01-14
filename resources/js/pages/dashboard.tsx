@@ -7,7 +7,7 @@ import ProgressTracker, { Props }from '@/components/dashboard';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Compendium Weekly',
         href: dashboard().url,
     },
 ];
