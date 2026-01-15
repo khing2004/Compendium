@@ -46,15 +46,6 @@ export interface Props {
   chartData: ChartDataPoint[];
 }
 
-const CHART_DATA = [
-  { name: 'Mon', tasks: 4 },
-  { name: 'Tue', tasks: 3 },
-  { name: 'Wed', tasks: 7 },
-  { name: 'Thu', tasks: 5 },
-  { name: 'Fri', tasks: 2 },
-  { name: 'Sat', tasks: 6 },
-  { name: 'Sun', tasks: 4 },
-];
 
 // Accept props here
 const ProgressTracker = ({initialTasks, chartData}: Props) => {

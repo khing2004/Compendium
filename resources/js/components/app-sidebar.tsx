@@ -28,7 +28,7 @@ const mainNavItems: NavItem[] = [
         icon: BookText,
     },
     {
-        title: 'Daily LeetCode',
+        title: 'DSA & LeetCode',
         href: '/leetcode',   
         icon: BookText,
     },

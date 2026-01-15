@@ -26,28 +26,6 @@ export interface JournalEntry {
     display_date: string; 
 }
 
-// --- Mock Data (Static Content) ---
-const MOCK_ENTRIES: JournalEntry[] = [
-    {
-        id: 1,
-        display_date: 'Wednesday, Oct 25, 2024',
-        created_at: '2024-10-25',
-        learning_journal: 'Today I finally understood how React Context API works. It avoids prop drilling by creating a global state that any component can subscribe to.',
-        heart_journal: 'I felt really frustrated in the morning when my code kept crashing, but overcoming that bug gave me a huge boost of confidence.',
-        questions: 'Is Redux still worth learning in 2024, or is Context + Query enough?',
-        quotes: '"First, solve the problem. Then, write the code." - John Johnson'
-    },
-    {
-        id: 2,
-        display_date: 'Tuesday, Oct 24, 2024',
-        created_at: '2024-10-24',
-        learning_journal: 'Deep dived into Laravel Eloquent relationships. The difference between hasMany and belongsTo is clearer now.',
-        heart_journal: 'Feeling grateful for the mentorship I received today. It makes such a difference.',
-        questions: 'How do I optimize database queries for n+1 problems automatically?',
-        quotes: '"Simplicity is the soul of efficiency." - Austin Freeman'
-    }
-];
-
 // Define props received from Laravel
 export interface Props {
     entries: JournalEntry[];
