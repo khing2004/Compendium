@@ -1,81 +1,112 @@
-# 📚 Compendium
+# 🧠 Frontend: Custom HTML/CSS/JS Application — Compendium
 
-A lightweight, custom-built web application focused on structured content delivery, interactive logic handling, and modular architecture. **Compendium** is a "CMS-free" system designed to demonstrate the ability to build and maintain robust, non-WordPress websites from the ground up.
+A modular, framework-free web application built with Vanilla HTML, CSS, and JavaScript, focused on interactive logic handling, form workflows, and maintainable architecture.
 
-
+Designed to demonstrate real-world capabilities in maintaining and debugging custom-built business websites (non-WordPress).
 
 ---
 
-## 🚀 Quick Start
+## 🛠 Tech Stack
+Layer	Technology
+Markup	HTML5 (Semantic Structure)
+Styling	CSS3 (Flexbox, Grid, Responsive Design)
+Logic	Vanilla JavaScript (ES6+)
+Architecture	Modular File Structure
+Forms	Client-side Validation + Event Handling
+Deployment Ready	Static Hosting (Netlify / Vercel compatible)
 
-To test the application locally, follow these steps:
+---
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/your-username/compendium.git](https://github.com/your-username/compendium.git)
-   cd compendium
-Backend Setup:
-In your first terminal, start the PHP server:
+##⚙️ Installation
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/Compendium.git
+```
+3. Navigate to project folder
+```bash
+cd Compendium
+```
+5. Open locally
 
-Bash
-php artisan serve
-Frontend Setup:
-In a second terminal, start the development server:
+You can simply open index.html in your browser
+or use a lightweight dev server:
+```bash
+npx serve .
+```
+---
 
-Bash
-npm run dev
-Access the App:
-Open your browser to http://localhost:8000 to create your account and explore the system.
+##🌟 Key Features
+**🧩 Interactive Logic Handling**
 
-🧐 Project Overview
-Compendium is a modular front-end web system built without CMS frameworks. It focuses on:
+**Multi-step user input flows**
 
-Clean Semantic Structure: Utilizing HTML5 for accessibility and SEO.
+**Dynamic DOM rendering**
 
-Responsive Layouts: CSS3 designs powered by Flexbox and Grid.
+**Conditional result calculation**
 
-State-Based Interactivity: JavaScript-driven logic for dynamic UI updates.
+**Event-driven architecture**
 
-Form Handling: Robust validation and event-driven architecture.
+**Defensive error handling**
 
-Email Workflows: Logic prepared for integration with services like SendGrid or Mailchimp.
+---
 
-🛠 Technical Stack
-Framework: Laravel 12.x
+#📩 Form & Email Workflow Structure
 
-Frontend: HTML5, CSS3, Vanilla JavaScript (ES6+)
+**Structured data collection**
 
-Build Tools: NPM / Vite
+**Clean input validation**
 
-Architecture: Modular file structure with client-side state logic
+**Encoding-safe handling**
 
-💡 Core Capabilities Demonstrated
-1. Interactive Logic Handling
-Multi-Step Inputs: Handling complex user journeys and multi-stage forms.
+Prepared integration points for:
 
-Conditional Calculation: JavaScript-driven results based on user selection.
+SendGrid
 
-Dynamic DOM Updates: Real-time interface updates without full page reloads.
+Mailchimp
 
-Defensive Programming: Robust error handling to ensure a smooth user experience.
+ConvertKit
 
-2. Secure Content Access Patterns
-Gated Content: Logic for email-gated or token-based download flows.
+Custom SMTP/API solutions
 
-File Access Control: Patterns for preventing direct asset exposure and securing PDF delivery.
+Built with real-world automation flows in mind.
 
-3. Maintainability Focus
-Clean Naming Conventions: Intuitive file and variable naming.
+---
 
-Logical Folder Separation: Decoupled frontend assets and backend logic.
 
-Documentation: Code is comment-documented for easy debugging and scaling.
+#🎯 Relevant to Ongoing Website Maintenance
 
-📂 Folder Structure
-/app - Backend logic, Models, and Controllers
+##This project demonstrates ability to:
 
-/resources - Frontend assets, templates, and JavaScript modules
+**Debug broken JavaScript logic (e.g., quiz result failures)**
 
-/routes - API and Web endpoint definitions
+**Repair event-driven UI bugs**
 
-/public - Compiled assets and entry points
+**Fix character encoding issues**
+
+**Secure publicly exposed downloadable assets**
+
+**Wire non-functional buttons and forms**
+
+**Integrate or troubleshoot email APIs**
+
+**Maintain production static sites**
+
+**Work comfortably within someone else’s codebase**
+
+---
+
+#📦 Deployment Compatibility
+
+Designed to work seamlessly with:
+
+Netlify
+
+Vercel
+
+DigitalOcean
+
+AWS S3 Static Hosting
+
+Traditional cPanel hosting
+
+No CMS required. No framework dependency.
