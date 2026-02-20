@@ -1,112 +1,145 @@
-# 🧠 Frontend: Custom HTML/CSS/JS Application — Compendium
+#📚 Compendium
 
-A modular, framework-free web application built with Vanilla HTML, CSS, and JavaScript, focused on interactive logic handling, form workflows, and maintainable architecture.
+A lightweight, custom-built web application focused on structured content delivery, interactive logic handling, and modular architecture.
 
-Designed to demonstrate real-world capabilities in maintaining and debugging custom-built business websites (non-WordPress).
-
----
-
-## 🛠 Tech Stack
-Layer	Technology
-Markup	HTML5 (Semantic Structure)
-Styling	CSS3 (Flexbox, Grid, Responsive Design)
-Logic	Vanilla JavaScript (ES6+)
-Architecture	Modular File Structure
-Forms	Client-side Validation + Event Handling
-Deployment Ready	Static Hosting (Netlify / Vercel compatible)
+Compendium is a CMS-free system built with Laravel + Vanilla JavaScript, designed to demonstrate the ability to build, debug, and maintain robust non-WordPress websites from the ground up.
 
 ---
+##🚀 Quick Start
 
-##⚙️ Installation
-1. Clone the repository
+To test the application locally:
+
+#1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/Compendium.git
+git clone https://github.com/your-username/compendium.git
 ```
-3. Navigate to project folder
 ```bash
-cd Compendium
+cd compendium
 ```
-5. Open locally
+#2️⃣ Install Dependencies
 
-You can simply open index.html in your browser
-or use a lightweight dev server:
+Install PHP dependencies:
 ```bash
-npx serve .
+composer install
 ```
----
+Install frontend dependencies:
+```bash
+npm install
+```
+#3️⃣ Configure Environment
 
-##🌟 Key Features
-**🧩 Interactive Logic Handling**
+Copy the example environment file:
+```bash
+cp .env.example .env
+```
+Generate application key:
+```bash
+php artisan key:generate
+```
 
-**Multi-step user input flows**
+If using a database, configure your .env file accordingly.
 
-**Dynamic DOM rendering**
+Run migrations:
+```bash
+php artisan migrate
+```
 
-**Conditional result calculation**
+#4️⃣ Start the Application
 
-**Event-driven architecture**
+In your first terminal (Backend):
+```bash
+php artisan serve
+```
+In a second terminal (Frontend / Vite):
+```bash
+npm run dev
+```
 
-**Defensive error handling**
+5️⃣ Access the App
 
----
+Open your browser and visit:
 
-#📩 Form & Email Workflow Structure
+http://localhost:8000
 
-**Structured data collection**
-
-**Clean input validation**
-
-**Encoding-safe handling**
-
-Prepared integration points for:
-
-SendGrid
-
-Mailchimp
-
-ConvertKit
-
-Custom SMTP/API solutions
-
-Built with real-world automation flows in mind.
-
----
-
-
-#🎯 Relevant to Ongoing Website Maintenance
-
-##This project demonstrates ability to:
-
-**Debug broken JavaScript logic (e.g., quiz result failures)**
-
-**Repair event-driven UI bugs**
-
-**Fix character encoding issues**
-
-**Secure publicly exposed downloadable assets**
-
-**Wire non-functional buttons and forms**
-
-**Integrate or troubleshoot email APIs**
-
-**Maintain production static sites**
-
-**Work comfortably within someone else’s codebase**
+Create your account and explore the system.
 
 ---
 
-#📦 Deployment Compatibility
+###🧐 Project Overview
 
-Designed to work seamlessly with:
+**Compendium is a modular Laravel-based web system designed without CMS frameworks. It focuses on:**
 
-Netlify
+**Clean Semantic Structure — HTML5 for accessibility and SEO**
 
-Vercel
+**Responsive Layouts — CSS3 powered by Flexbox and Grid**
 
-DigitalOcean
+**State-Based Interactivity — JavaScript-driven dynamic UI updates**
 
-AWS S3 Static Hosting
+**Form Handling — Robust validation and event-driven architecture**
 
-Traditional cPanel hosting
+**Email Workflow Ready — Prepared for SendGrid, Mailchimp, or SMTP integration**
 
-No CMS required. No framework dependency.
+---
+##🛠 Technical Stack
+| Layer | Technology |
+|---|---|
+| Backend | Laravel 12.x |
+| Frontend | HTML5, CSS3, Vanilla JavaScript (ES6+) |
+| Build Tool | Vite |
+| Package Manager | NPM |
+| Architecture | Modular MVC + Client-side State Logic |
+
+---
+
+###💡 Core Capabilities Demonstrated
+**1️⃣ Interactive Logic Handling**
+
+Multi-step user flows
+
+Conditional calculation logic
+
+Dynamic DOM updates without reload
+
+Defensive error handling
+
+Demonstrates ability to debug and stabilize quiz-style or scoring systems.
+
+**2️⃣ Secure Content Access Patterns**
+
+Email-gated content logic
+
+Token-based download flows
+
+File access control strategies
+
+Prevention of direct asset exposure
+
+**3️⃣ Maintainability & Codebase Structure**
+
+Clear naming conventions
+
+Logical separation of backend and frontend
+
+Decoupled routing and controllers
+
+Comment-documented logic
+
+Scalable architecture
+
+
+---
+
+**To run locally:**
+```bash
+php artisan serve
+```
+
+In another terminal:
+```bash
+npm run dev
+```
+Then open:
+```bash
+http://localhost:8000
+```
+Create your account and explore the system.
